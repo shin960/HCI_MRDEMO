@@ -13,7 +13,7 @@ js/app.js               動作
 vendor/model-viewer.min.js   3D表示とAR起動のライブラリ（Google <model-viewer> 4.4.0、同梱）
 models/*.glb            仮想物体（10cm立方体、マグカップ、テディータ、ロボット）
 tools/make_models.py    立方体・マグカップ・ロボットを生成するスクリプト
-tools/prepare_teddyta.py  外部で作ったテディータの GLB を取り込むスクリプト（実寸25cmに縮尺、テクスチャを軽量化）
+tools/prepare_teddyta.py  外部で作ったテディータの GLB を取り込むスクリプト（実寸25cmに縮尺、前後の厚み付け、テクスチャの軽量化）
 .nojekyll               GitHub Pages でファイルをそのまま配信させるための空ファイル
 ```
 
@@ -79,4 +79,18 @@ LINE など、アプリ内ブラウザで QR を開くと AR が起動しない�
 `vendor/model-viewer.min.js` は Google の `<model-viewer>`（Apache License 2.0）。ライセンス文は `vendor/LICENSE-model-viewer.txt`。
 立方体・マグカップ・ロボットは `tools/make_models.py` で生成した自作のもの。テディータ（`models/teddyta.glb`）は提供された GLB を `tools/prepare_teddyta.py` で整えたもの。
 
-テディータのモデルを新しい版に差し替えるときは、`python tools/prepare_teddyta.py 新しいファイル.glb` を実行する。
+### テディータのモデルを差し替える
+
+新しい GLB を受け取ったら、次の2段階で取り込む。現在の `models/teddyta.glb`（約2.8MB）もこの手順で作っている。
+
+```
+# 1. 三角形の数を約半分に減らす (Node.js が必要。省略してもよいが、その分ファイルが大きくなる)
+npx @gltf-transform/cli weld 新しいファイル.glb welded.glb
+npx @gltf-transform/cli simplify welded.glb simplified.glb --ratio 0.5 --error 0.0005
+
+# 2. 実寸25cmに縮尺し、前後に厚みを付け、テクスチャを 2048px の JPEG にする
+python tools/prepare_teddyta.py simplified.glb
+```
+
+厚みや画質は `tools/prepare_teddyta.py` の冒頭の値（`DEPTH_SCALE`、`MAX_TEXTURE`、`JPEG_QUALITY`）か、
+`--depth 1.3` のような引数で変えられる。
