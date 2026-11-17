@@ -1,0 +1,248 @@
+:root {
+  --bg: #f5f3ee;
+  --card: #ffffff;
+  --ink: #1c2331;
+  --muted: #5d6677;
+  --line: #dedad0;
+  --accent: #0d6e6e;
+  --accent-ink: #ffffff;
+  --accent-soft: #e2f1ef;
+  --warn-bg: #fff4d6;
+  --warn-ink: #6b4a00;
+  --ok-bg: #e2f1ef;
+  --ok-ink: #0a4f4f;
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+    "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+header.top, main, footer {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+header.top { padding-top: 28px; }
+
+.eyebrow {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+h1 {
+  margin: 4px 0 8px;
+  font-size: 30px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.lead { margin: 0 0 18px; color: var(--muted); }
+
+.steps-nav {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+}
+.steps-nav a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 4px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--ink);
+  font-size: 13px;
+  text-decoration: none;
+}
+.steps-nav b { font-size: 12px; color: var(--accent); }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px 16px 22px;
+  margin-bottom: 16px;
+  scroll-margin-top: 12px;
+}
+
+h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 6px;
+  font-size: 20px;
+  line-height: 1.35;
+}
+.num {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 15px;
+}
+
+.sub { margin: 0 0 16px; color: var(--muted); font-size: 15px; }
+.hint { margin: 8px 0 12px; color: var(--muted); font-size: 14px; min-height: 1.7em; }
+
+/* 選択肢のチップ (ラジオボタン) */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips label { position: relative; cursor: pointer; }
+.chips input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.chips span {
+  display: block;
+  padding: 9px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  background: var(--card);
+  font-size: 15px;
+  line-height: 1.4;
+}
+.chips input:checked + span {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--ok-ink);
+  font-weight: 600;
+}
+.chips input:focus-visible + span { outline: 3px solid #7fbdbb; outline-offset: 2px; }
+.chips.stack { flex-direction: column; }
+.chips.stack span { border-radius: 12px; }
+
+/* 3Dビューア */
+.viewer-wrap { margin-top: 4px; }
+model-viewer {
+  display: block;
+  width: 100%;
+  height: min(62vw, 380px);
+  border-radius: 12px;
+  background: linear-gradient(#eef1f4, #dfe4e8);
+  --poster-color: transparent;
+}
+.viewer-caption { margin: 6px 0 0; font-size: 13px; color: var(--muted); text-align: center; }
+
+button { font: inherit; cursor: pointer; }
+button.primary {
+  width: 100%;
+  padding: 14px 16px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 17px;
+  font-weight: 700;
+}
+button.primary:active { transform: translateY(1px); }
+button.ghost {
+  display: block;
+  margin: 18px auto 0;
+  padding: 8px 14px;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-size: 14px;
+  text-decoration: underline;
+}
+#ar-button { margin-top: 12px; }
+[hidden] { display: none !important; }
+
+.notice {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 15px;
+}
+.notice.warn { background: var(--warn-bg); color: var(--warn-ink); }
+.notice.ok { background: var(--ok-bg); color: var(--ok-ink); }
+.notice a { color: inherit; font-weight: 700; }
+.notice p { margin: 0; }
+.notice p + p { margin-top: 6px; }
+
+details.help { margin-top: 14px; font-size: 14px; color: var(--muted); }
+details.help summary { cursor: pointer; padding: 4px 0; }
+details.help ul { margin: 6px 0 0; padding-left: 1.3em; }
+details.help li { margin-bottom: 4px; }
+
+/* 観察・分類の設問 */
+.q {
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+}
+.q:first-child { border-top: 0; padding-top: 4px; }
+.q h3 { margin: 0 0 6px; font-size: 17px; line-height: 1.4; }
+.q h3 small { color: var(--accent); font-size: 13px; margin-right: 6px; }
+.q .task {
+  margin: 0 0 10px;
+  padding: 10px 12px;
+  border-left: 4px solid var(--accent);
+  background: #f3f7f7;
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+}
+.q .ask { margin: 0 0 8px; font-weight: 600; font-size: 15px; }
+.q textarea, .q input[type="text"] {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  font: inherit;
+  font-size: 16px; /* iOSで入力時に拡大されないよう16px以上 */
+  color: var(--ink);
+  background: #fff;
+}
+.q textarea { min-height: 96px; resize: vertical; }
+.q textarea:focus, .q input[type="text"]:focus { outline: 3px solid #7fbdbb; border-color: var(--accent); }
+
+.progress { margin: 0 0 12px; font-size: 15px; font-weight: 600; }
+.progress.done { color: var(--accent); }
+.copied { min-height: 1.7em; margin: 8px 0 0; text-align: center; color: var(--accent); font-weight: 600; }
+
+pre#preview {
+  margin: 8px 0 0;
+  padding: 12px;
+  background: #f3f2ed;
+  border-radius: 10px;
+  color: var(--ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+footer { padding-top: 4px; padding-bottom: 32px; }
+footer p { margin: 0; font-size: 12px; color: var(--muted); }
+footer a { color: inherit; }
+
+@media (min-width: 700px) {
+  header.top { padding-top: 44px; }
+  .card { padding: 26px 26px 28px; }
+  h1 { font-size: 36px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
