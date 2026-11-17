@@ -31,6 +31,12 @@ window.MR_CONFIG = {
       note: "高さ約9cm。机の上にあって自然に見えるかを確かめやすい。",
     },
     {
+      id: "teddyta",
+      name: "テディータ",
+      file: "models/teddyta.glb",
+      note: "高さ25cmのぬいぐるみ。手を振っている。周りを回り込んで、横や後ろからも見てみよう。",
+    },
+    {
       id: "robot",
       name: "ロボット",
       file: "models/robot.glb",

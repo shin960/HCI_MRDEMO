@@ -11,8 +11,9 @@ css/style.css           見た目
 js/config.js            文言・設問・モデルの設定（内容を変えるときはここだけ編集）
 js/app.js               動作
 vendor/model-viewer.min.js   3D表示とAR起動のライブラリ（Google <model-viewer> 4.4.0、同梱）
-models/*.glb            仮想物体（10cm立方体、マグカップ、ロボット）
-tools/make_models.py    上の3つのモデルを生成するスクリプト
+models/*.glb            仮想物体（10cm立方体、マグカップ、テディータ、ロボット）
+tools/make_models.py    立方体・マグカップ・ロボットを生成するスクリプト
+tools/prepare_teddyta.py  外部で作ったテディータの GLB を取り込むスクリプト（実寸25cmに縮尺、テクスチャを軽量化）
 .nojekyll               GitHub Pages でファイルをそのまま配信させるための空ファイル
 ```
 
@@ -76,4 +77,6 @@ LINE など、アプリ内ブラウザで QR を開くと AR が起動しない�
 ## ライセンス
 
 `vendor/model-viewer.min.js` は Google の `<model-viewer>`（Apache License 2.0）。ライセンス文は `vendor/LICENSE-model-viewer.txt`。
-3Dモデルは `tools/make_models.py` で生成した自作のもの。
+立方体・マグカップ・ロボットは `tools/make_models.py` で生成した自作のもの。テディータ（`models/teddyta.glb`）は提供された GLB を `tools/prepare_teddyta.py` で整えたもの。
+
+テディータのモデルを新しい版に差し替えるときは、`python tools/prepare_teddyta.py 新しいファイル.glb` を実行する。

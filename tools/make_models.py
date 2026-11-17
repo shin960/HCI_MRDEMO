@@ -4,6 +4,7 @@
     python tools/make_models.py
 
 models/ に cube10cm.glb, mug.glb, robot.glb を書き出す。
+テディータ (teddyta.glb) は外部で作った GLB を tools/prepare_teddyta.py で取り込む。
 単位はメートル、Y軸が上、底面が y=0 (机に接する面) になるように作っている。
 モデルを差し替えたいときは、このスクリプトを直すか、任意の GLB を models/ に置いて
 js/app.js の MODELS を書き換える。
@@ -22,7 +23,15 @@ OUT = Path(__file__).resolve().parent.parent / "models"
 Z_UP_TO_Y_UP = trimesh.transformations.rotation_matrix(-np.pi / 2, [1, 0, 0])
 
 
+def srgb_to_linear(c):
+    """画面で見たい色 (sRGB, 0-255) を、glTF の baseColorFactor が要求するリニア値に直す。"""
+    v = c / 255.0
+    lin = v / 12.92 if v <= 0.04045 else ((v + 0.055) / 1.055) ** 2.4
+    return int(round(lin * 255))
+
+
 def colored(mesh, rgb, rough=0.6, metal=0.0):
+    rgb = [srgb_to_linear(c) for c in rgb]
     mat = PBRMaterial(
         baseColorFactor=[rgb[0], rgb[1], rgb[2], 255],
         roughnessFactor=rough,
